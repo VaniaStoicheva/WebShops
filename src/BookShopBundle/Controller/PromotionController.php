@@ -48,6 +48,8 @@ class PromotionController extends Controller
             $em->persist($promotion);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', "The promotion from category: ".strtoupper($promotion->getCategory())." is created successfully!");
+
             return $this->redirectToRoute('promotion_show', array('id' => $promotion->getId()));
         }
 
@@ -87,6 +89,8 @@ class PromotionController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->get('session')->getFlashBag()->add('success', "The promotion from category: ".strtoupper($promotion->getCategory())." is edited successfully!");
 
             return $this->redirectToRoute('promotion_edit', array('id' => $promotion->getId()));
         }

@@ -36,6 +36,7 @@ class ProductController extends Controller
 
         $max_promotion=$this->getDoctrine()->getRepository('BookShopBundle:Promotion')
             ->fetchBiggestPromotion();
+        $this->get('session')->getFlashBag()->add('info', "Max promotion active today: ".$max_promotion);
 
         $calc=$this->get('price_calculator');
 
@@ -89,7 +90,7 @@ class ProductController extends Controller
                 $em->persist($product);
                 $em->flush();
 
-                $this->get('session')->getFlashBag()->add('success', "The book is created successfully!");
+                $this->get('session')->getFlashBag()->add('success', "The book ".strtoupper($product->getName())." is created successfully!");
                 return $this->redirectToRoute('product_show', array('id' => $product->getId()));
             }
         }
@@ -156,7 +157,7 @@ class ProductController extends Controller
 
 
             $this->getDoctrine()->getManager()->flush();
-
+            $this->get('session')->getFlashBag()->add('success', "The book ".strtoupper($product->getName())." is edited successfully!");
             return $this->redirectToRoute('product_index');
         }
 
@@ -187,7 +188,7 @@ class ProductController extends Controller
             $em->remove($product);
             $em->flush();
         }
-
+        $this->get('session')->getFlashBag()->add('delete', "The book ".strtoupper($product->getName())." is deleted successfully!");
         return $this->redirectToRoute('product_index');
     }
 

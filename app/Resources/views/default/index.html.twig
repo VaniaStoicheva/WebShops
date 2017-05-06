@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container">
+        <div class="col-md-6 col-md-offset-2">
     <h1>Welcome to Web BookStore</h1><br>
-    <a href="{{ url('product_index') }}">View All Products</a> |
+    <a href="{{ url('product_index') }}" class="btn btn-primary btn-lg">View All Products</a>
     {% if is_granted('ROLE_USER') %}
-        <a href="{{ url('product_new') }}">Create Product</a> |
+        <a href="{{ url('product_new') }}" class="btn btn-primary btn-lg">Create Product</a>
     {% endif %}
-    <a href="{{ url('admin_manage_products') }}">manage products</a> |
+    <a href="{{ url('admin_manage_products') }}" class="btn btn-primary btn-lg" >manage products</a>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ url('admin_manage_products') }}">manage products</a> |
+        <a href="{{ url('admin_manage_products') }}" class="btn btn-primary btn-lg">manage products</a>
     {% endif %}
 
-
+        </div>
+    </div>
 
 
 {% endblock %}

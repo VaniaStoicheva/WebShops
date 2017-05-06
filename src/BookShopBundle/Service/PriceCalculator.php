@@ -39,12 +39,27 @@ class PriceCalculator
      */
     public function calculate($product)
     {
-        $promotion=$this->emanager->getRepository('BookShopBundle:Promotion')
-            ->fetchBiggestPromotion($product->getCategories());
+        $category=$product->getCategory();
+
+        if(!isset($this->category_promotions[$category->getId()])){
+            $this->category_promotions[$category->getId()]=
+                $this->emanager
+                ->getRepository('BookShopBundle:Promotion')
+                ->fetchBiggestPromotion($category);
+        }
+        $promotion=$this->category_promotions[$category->getId()];
+
+        if($promotion===0 && $this->promotion===null){
+            $this->promotion=$promotion=$this->emanager
+                ->getRepository('BookShopBundle:Promotion')
+                ->fetchBiggestPromotion();
+        }
+       /* $promotion=$this->emanager->getRepository('BookShopBundle:Promotion')
+            ->fetchBiggestPromotion($product->getCategory());
         if($promotion===0 && $this->promotion===null){
             $promotion=$this->emanager->getRepository('BookShopBundle:Promotion')
                 ->fetchBiggestPromotion();
-        }
+        }*/
 
         return $product->getPrice()-$product->getPrice()*($promotion/100);
 

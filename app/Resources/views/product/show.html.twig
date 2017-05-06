@@ -24,9 +24,7 @@
             </tr>
             <tr>
                 <th>Category</th>
-                {% for category in product.categories %}
-                    <td><li>{{ category.name }}</li></td>
-                {% endfor %}
+                <td><li>{{ product.name }}</li></td>
             </tr>
             <tr>
                 <th>Image</th>
@@ -34,18 +32,16 @@
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
-        </li>
-        <li>
+            </div>
+            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary btn-sm">Edit</a>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+
+        <a href="{{ path('product_new') }}" class="btn btn-primary btn-sm">Add new product</a>
+
+                <a href="{{ path('product_index') }}" class="btn btn-primary btn-sm">Back to the list</a>
+
+
 {% endblock %}

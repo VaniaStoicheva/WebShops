@@ -1,25 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container">
+
     <div class="col-md-6 col-md-offset-2">
     <h1>Category edit</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Edit" class="btn btn-primary btn-sm"/>
     {{ form_end(edit_form) }}
-    </div>
-</div>
-    <ul>
-        <li>
-            <a href="{{ path('category_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+            {{ form_end(delete_form) }}
+
+
+    </div>
+
+    <a href="{{ path('category_index') }}" class="btn btn-primary btn-sm">Back to the list</a>
 {% endblock %}

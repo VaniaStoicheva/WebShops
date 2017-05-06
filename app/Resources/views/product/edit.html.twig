@@ -2,18 +2,18 @@
 
 {% block body %}
 <div class="container">
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
     <h1>Product edit</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Edit"  class="btn btn-primary btn-sm"/>
     {{ form_end(edit_form) }}
 
-
-            {{ form_start(delete_form) }}
-                <input type="submit" class="btn bg-danger" value="Delete">
+        {{ form_start(delete_form) }}
+                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
             {{ form_end(delete_form) }}
     </div>
+    <a href="{{ path('product_index') }}" class="btn btn-primary btn-sm">Back to the list</a>
 </div>
 {% endblock %}

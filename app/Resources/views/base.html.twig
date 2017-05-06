@@ -13,6 +13,8 @@
 
 <body id="{% block body_id %}{% endblock %}">
 
+
+
 {% block header %}
     <header>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -29,12 +31,15 @@
                 <div class="navbar-collapse collapse">
 
                     <ul class="nav nav-tabs">
-                        <li class=""><a href="{{ path('homepage') }}" data-toggle="tab" aria-expanded="false">Home</a></li>
+                        <li class="active"><a href="{{ path('homepage') }}" data-toggle="tab" aria-expanded="false">Home</a></li>
                         <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
-                        <li class="active"><a href="{{ path('category_index') }}" data-toggle="tab" aria-expanded="false">Categories</a></li>
+                        <li class="active"><a href="{{ path('category_index') }}" data-toggle="tab" aria-expanded="true">Categories</a></li>
 
-                        <li class="dropdown open">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="true">
+                        <li class="active"><a href="{{ path('product_index') }}" data-toggle="tab" aria-expanded="false">Products</a></li>
+                        <li class="active"><a href="{{ path('promotion_index') }}" data-toggle="tab" aria-expanded="false">Promotions</a></li>
+
+                       {# <li class="dropdown open">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="false">
                                 Books <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -43,7 +48,7 @@
                                 <li><a href="{{ path('product_new') }}" data-toggle="tab">Add New Book</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul>#}
 
                     {#<li class="dropdown open">
                         <a class="dropdown-toggle active" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="true">Categories <span class="caret"></span>
@@ -87,10 +92,30 @@
 {% endblock %}
 
 <div class="container body-container">
+    {% for message in app.session.flashBag.get('info') %}
+        <div class="alert alert-info">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+    {% for message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+    {% for message in app.session.flashBag.get('delete') %}
+        <div class="alert alert-danger">
+            <h1>{{ message }}</h1>
+        </div>
+    {% endfor %}
     {% block body %}
+
+
+
         <div class="row">
             <div id="main" class="col-sm-9">
-                {% block main %}{% endblock %}
+                {% block main %}
+
+                {% endblock %}
             </div>
         </div>
     {% endblock %}

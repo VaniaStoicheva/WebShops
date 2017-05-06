@@ -48,6 +48,8 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', "The category ".strtoupper($category->getName())." is created successfully!");
+
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
@@ -88,6 +90,8 @@ class CategoryController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->get('session')->getFlashBag()->add('success', "The category ".strtoupper($category->getName())." is edited successfully!");
+
             return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
         }
 
@@ -113,6 +117,8 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('delete', "The category ".strtoupper($category->getName())." is deleted successfully!");
         }
 
         return $this->redirectToRoute('category_index');

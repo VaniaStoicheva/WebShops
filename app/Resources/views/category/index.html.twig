@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <div class="col-md-6 col-md-offset-2">
 
     <h1>Categories list</h1>
@@ -22,26 +23,16 @@
                 <td>{{ category.name }}</td>
                 <td>{% if category.published %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('category_show', { 'id': category.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('category_show', { 'id': category.id }) }}" class="btn btn-primary btn-sm">show</a>
+                    <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary btn-sm">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     </div>
-
-    <ul>
-        <li>
-            <a href="{{ path('category_new') }}">Add new category</a>
-        </li>
-    </ul>
-
 </div>
+            <a href="{{ path('category_new') }}" class="btn btn-primary btn-sm">Add new category</a>
+
+
 {% endblock %}

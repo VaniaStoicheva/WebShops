@@ -38,11 +38,8 @@ class ProductType extends AbstractType
 
 
             ] )
-            ->add('categories',EntityType::class, [
-                'class' => 'BookShopBundle\Entity\Category',
-                'multiple' => true
-
-
+            ->add('category',EntityType::class, [
+                'class' => 'BookShopBundle\Entity\Category'
       ])
       ->add('published',ChoiceType::class,
           [

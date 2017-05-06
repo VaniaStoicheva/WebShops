@@ -92,10 +92,10 @@ class Product
 
     /**
      * @var Category
-     * @ORM\ManyToMany(targetEntity="BookShopBundle\Entity\Category", inversedBy="products")
-     * @ORM\JoinTable(name="category_products", joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}, inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")})
+     * @ORM\ManyToOne(targetEntity="BookShopBundle\Entity\Category",inversedBy="products")
+     * @ORM\JoinColumn(name="category_id",referencedColumnName="id")
      */
-    private $categories;
+    private $category;
 
     /**
      * Get quantity
@@ -274,22 +274,24 @@ class Product
         $this->published = $published;
     }
 
-
     /**
-     * @return Category[]|ArrayCollection
+     * @return Category
      */
-    public function getCategories()
+    public function getCategory()
     {
-        return $this->categories;
+        return $this->category;
     }
 
     /**
-     * @param Category[]|ArrayCollection $categories
+     * @param Category $category
      */
-    public function setCategories($categories)
+    public function setCategory(Category $category)
     {
-        $this->categories = $categories;
+        $this->category = $category;
     }
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 
 namespace BookShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Ldap\Adapter\ExtLdap\Collection;
 
@@ -38,7 +39,7 @@ class Category
 
     /**
      * @var Product[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="BookShopBundle\Entity\Product", mappedBy="categories", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="BookShopBundle\Entity\Product",mappedBy="category")
      */
     private $products;
 
@@ -121,6 +122,22 @@ class Category
     public function setProducts(Collection $products)
     {
         $this->products = $products;
+    }
+
+    /**
+     * @return Promotion[]|ArrayCollection
+     */
+    public function getPromotions()
+    {
+        return $this->promotions;
+    }
+
+    /**
+     * @param mixed $promotions
+     */
+    public function setPromotions($promotions)
+    {
+        $this->promotions = $promotions;
     }
 
 }
