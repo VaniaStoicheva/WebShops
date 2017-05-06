@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <p>Max promotion active today:{{ max_promotion }}%</p>
+    <h1>Products list</h1>
+
+    <table >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+
+                <th>Category</th>
+                <th>Images</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for products in product %}
+            <tr>
+                <td><a href="{{ path('product_show', { 'id': products.id }) }}">{{ products.id }}</a></td>
+                <td>{{ products.name }}</td>
+                <td>{{ products.description }}</td>
+
+                <td>
+                    {% set product_promotion=calc.calculate(products) %}
+                    {% if product_promotion!=0 %}
+                    <del>{{  products.price | number_format(2) }}<br></del>
+                    {% endif %}
+                    {{ product_promotion  | number_format(2) }}
+                </td>
+
+                {% for category in products.categories %}
+                    <td>{{ category.name}}<br></td>
+                {% endfor %}
+                <td><img src="/images/product/{{ products.image }}" style="width: 50px;"/></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('product_show', { 'id': products.id }) }}">show</a>
+                        </li>
+                        {%  if user.id == products.user.id  or is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('product_edit', { 'id': products.id }) }}">edit</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('product_new') }}">Create a new product</a>
+        </li>
+    </ul>
+{% endblock %}

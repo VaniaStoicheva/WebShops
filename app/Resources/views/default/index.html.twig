@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Welcome to Web BookStore</h1><br>
+    <a href="{{ url('product_index') }}">View All Products</a> |
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ url('product_new') }}">Create Product</a> |
+    {% endif %}
+    <a href="{{ url('admin_manage_products') }}">manage products</a> |
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ url('admin_manage_products') }}">manage products</a> |
+    {% endif %}
+
+
+
+
+{% endblock %}
+
