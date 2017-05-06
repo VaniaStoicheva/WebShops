@@ -1,30 +1,131 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-    {% if app.session.flashBag.has('success') %}
-        <ul style="color: green">
-            {% for message in app.session.flashBag.get('success') %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome to web bookstore!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-    {% if app.session.flashBag.has('error') %}
-        <ul style="color: red">
-            {% for message in app.session.flashBag.get('error') %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-        {% block body %}
+</head>
 
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<body id="{% block body_id %}{% endblock %}">
+
+{% block header %}
+    <header>
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{{ path('homepage') }}" class="navbar-brand">BOOKSTORE</a>
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav nav-tabs">
+                        <li class=""><a href="{{ path('homepage') }}" data-toggle="tab" aria-expanded="false">Home</a></li>
+                        <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
+                        <li class="active"><a href="{{ path('category_index') }}" data-toggle="tab" aria-expanded="false">Categories</a></li>
+
+                        <li class="dropdown open">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="true">
+                                Books <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('product_index') }}" data-toggle="tab">View all Books</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('product_new') }}" data-toggle="tab">Add New Book</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    {#<li class="dropdown open">
+                        <a class="dropdown-toggle active" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="true">Categories <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('category_index') }}" data-toggle="tab">View all Categories</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('category_new') }}" data-toggle="tab">Add New Category</a></li>
+                        </ul>
+                    </li>
+                    </ul>#}
+
+                </div>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                {#{% if app.user %}#}
+
+                <li>
+                    <a href="{{ path('user_logout') }}">
+                        Logout
+                    </a>
+                </li>
+                {#{% else %}#}
+                <li>
+                    <a href="{{ path('user_login') }}">
+                        REGISTER
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('user_login') }}">
+                        LOGIN
+                    </a>
+                </li>
+                {#{% endif %}#}
+            </ul>
+        </div>
+        </div>
+        </div>
+    </header>
+{% endblock %}
+
+<div class="container body-container">
+    {% block body %}
+        <div class="row">
+            <div id="main" class="col-sm-9">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <footer>
+        <div class="container modal-footer">
+            <p>&copy; 2017 - Web bookstore</p>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+{% endblock %}
+
+</body>
+
+
+{#<body>
+{% for message in app.session.flashBag.get('info') %}
+    <div class="alert alert-success">
+        <strong>{{ message }}</strong>
+    </div>
+{% endfor %}
+{% for message in app.session.flashBag.get('delete') %}
+    <div class="alert alert-danger">
+        <h1>{{ message }}</h1>
+    </div>
+{% endfor %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>#}
 </html>

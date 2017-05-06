@@ -2,11 +2,18 @@
 
 {% block body %}
 
-    <p>Max promotion active today:{{ max_promotion }}%</p>
-    <h1>Products list</h1>
 
-    <table >
-        <thead>
+
+<div class="container">
+
+    <div class="col-md-8 col-md-offset-1">
+
+        <p>Max promotion active today:{{ max_promotion }}%</p>
+        <h1>Products list</h1>
+
+        <div class="table-respovsive">
+            <table class="table table-striped table-hover ">
+                <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -54,10 +61,8 @@
         {% endfor %}
         </tbody>
     </table>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
-        </li>
-    </ul>
+    </div>
+</div>
 {% endblock %}
