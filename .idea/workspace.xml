@@ -800,7 +800,7 @@
       <workItem from="1493479388380" duration="3096000" />
       <workItem from="1493483299565" duration="107378000" />
       <workItem from="1494043711640" duration="748000" />
-      <workItem from="1494044501310" duration="85605000" />
+      <workItem from="1494044501310" duration="86198000" />
     </task>
     <task id="LOCAL-00001" summary="ManyToMany product-category">
       <created>1494043153509</created>
@@ -813,7 +813,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196827000" />
+    <option name="totallyTimeSpent" value="197420000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
