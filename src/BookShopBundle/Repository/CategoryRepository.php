@@ -1,6 +1,7 @@
 <?php
 
 namespace BookShopBundle\Repository;
+use BookShopBundle\Entity\Category;
 
 /**
  * CategoryRepository
@@ -10,4 +11,5 @@ namespace BookShopBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

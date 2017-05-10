@@ -8,10 +8,12 @@
     <div class="col-md-8 col-md-offset-1">
         <h1>Products list</h1>
         <div class="table-respovsive">
+
+            <form action="{{ path('card_add') }}" method="post">
             <table class="table table-striped table-hover ">
                 <thead>
             <tr>
-                <th>Id</th>
+                <th colspan="2">Id</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Discount</th>
@@ -19,6 +21,7 @@
 
                 <th>Category</th>
                 <th>Images</th>
+                <th>Quantity</th>
                 <th>Actions</th>
 
             </tr>
@@ -26,10 +29,17 @@
         <tbody>
         {% for products in product %}
             <tr>
-                <td><a href="{{ path('product_show', { 'id': products.id }) }}">{{ products.id }}</a></td>
-                <td>{{ products.name }}</td>
+                <td colspan="2">
+                    <a href="{{ path('product_show', { 'id': products.id }) }}">{{ products.id }}</a>
+                    <input type="checkbox" value="{{ products.id }}" name="products[]">
+                </td>
+                <td >{{ products.name }}</td>
                 <td>{{ products.description }}</td>
-                <td>{{ 'hh' }}%</td>
+                <td>
+                    {% for percent_promotion in percent_promotions %}
+                        {{ percent_promotion.percent }}%
+                    {% endfor %}
+                </td>
                 <td>
                     {% set product_promotion=calc.calculate(products) %}
                     {% if product_promotion!=products.price %}
@@ -37,13 +47,14 @@
                     {% endif %}
                     {{ product_promotion  | number_format(2) }}
                 </td>
-                <td>{{ products.category}}</td>
+                <td><a href="{{ path('products_list', { 'id': products.id }) }}">{{ products.category}}</a></td>
 
                 <td><img src="/images/product/{{ products.image }}" style="width: 50px;"/></td>
+                {% if products.quantity!=0 %}
+                <td>{{ products.quantity }}
+                {% endif %}
                 <td>
-
-
-                            <a href="{{ path('product_show', { 'id': products.id }) }}" class="btn btn-primary btn-sm">show</a>
+                    <a href="{{ path('product_show', { 'id': products.id }) }}" class="btn btn-primary btn-sm">show</a>
 
                         {%  if user.id == products.user.id  or is_granted('ROLE_ADMIN') %}
 
@@ -54,8 +65,14 @@
                 </td>
             </tr>
         {% endfor %}
+        <tr>
+        <td colspan="6">
+            <button type="submit">Add To Cart</button>
+        </td>
+        </tr>
         </tbody>
     </table>
+            </form>
         </div>
 
     </div>

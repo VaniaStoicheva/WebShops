@@ -7,6 +7,7 @@
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
+       {# <a href="{{ path('promotion_edit', { 'id': promotion.id }) }}" class="btn btn-primary btn-sm">Edit Promotion</a>#}
         <input type="submit" value="Edit"  class="btn btn-primary btn-sm"/>
     {{ form_end(edit_form) }}
 

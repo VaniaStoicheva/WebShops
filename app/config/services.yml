@@ -4,9 +4,14 @@ parameters:
     #parameter_name: value
 
 services:
+    repo.promotions:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager",getRepository]
+        arguments:
+            - \BookShopBundle\Entity\Promotion
+    promotion_manager:
+        class: BookShopBundle\Service\PromotionManager
+        arguments: ['@repo.promotions']
     price_calculator:
         class: BookShopBundle\Service\PriceCalculator
-        arguments: ['@doctrine.orm.entity_manager']
-    #service_name:
-    #    class: BookShopBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+        arguments: ['@promotion_manager']

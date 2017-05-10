@@ -33,6 +33,15 @@ class ProductController extends Controller
 
         $products = $em->getRepository('BookShopBundle:Product')->findAll();
         $categories=$em->getRepository('BookShopBundle:Category')->findAll();
+        $promotion=$em->getRepository('BookShopBundle:Promotion')->findAll();
+
+        $percent_promotions=$em->getRepository('BookShopBundle:Promotion')->findBy([
+                    'category'=>$promotion
+                ]);
+        /*$percent_promotions=0;
+        foreach ($categories as $category){
+            if($promotion->h)1,14min tema22
+        }*/
 
         $max_promotion=$this->getDoctrine()->getRepository('BookShopBundle:Promotion')
             ->fetchBiggestPromotion();
@@ -45,11 +54,34 @@ class ProductController extends Controller
             'categories'=>$categories,
             'product' => $products,
             'max_promotion'=>$max_promotion,
+            'percent_promotions'=>$percent_promotions,
             'calc'=>$calc,
             'user'=>$this->getUser(),
         ));
     }
 
+    /**
+     * @Route("/{id}/products_list",name="products_list")
+     * @param Product $product
+     * @Method({"GET","POST"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function productsListByCategory(Product $product)
+    {
+        $category_id=$product->getCategory();
+
+
+
+       $products=$this->getDoctrine()->getRepository('BookShopBundle:Product')->findBy([
+           'category'=>$category_id
+       ]);
+
+
+        return $this->render('product/products_list.html.twig',[
+            'category'=>$category_id,
+           'products'=>$products
+        ]);
+    }
     /**
      * Creates a new product entity.
      *
@@ -137,7 +169,9 @@ class ProductController extends Controller
         }
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('BookShopBundle\Form\ProductType', $product);
+
         $editForm->handleRequest($request);
+
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
@@ -243,4 +277,6 @@ class ProductController extends Controller
 
         return $this->redirectToRoute('admin_manage_products');
     }
+
+
 }

@@ -3,9 +3,11 @@
 namespace BookShopBundle\Controller;
 
 use BookShopBundle\Entity\Category;
+use BookShopBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Category controller.
@@ -26,9 +28,37 @@ class CategoryController extends Controller
 
         $categories = $em->getRepository('BookShopBundle:Category')->findAll();
 
+
+        $products=$this->getDoctrine()->getRepository('BookShopBundle:Product')->findBy([
+            'category'=>$categories
+        ]);
+
         return $this->render('category/index.html.twig', array(
+            'product'=>$products,
             'categories' => $categories,
         ));
+    }
+    /**
+     * @Route("/{id}/products_all",name="category_products")
+     * @Method({"GET","POST"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function productsListByCategories(Product $product)
+    {
+        $category_id=$product->getCategory();
+
+
+
+
+        $products=$this->getDoctrine()->getRepository('BookShopBundle:Product')->findBy([
+            'category'=>$category_id
+        ]);
+
+
+        return $this->render('category/products.html.twig',[
+            'category'=>$category_id,
+            'products'=>$products
+        ]);
     }
 
     /**
@@ -101,6 +131,8 @@ class CategoryController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+
 
     /**
      * Deletes a category entity.

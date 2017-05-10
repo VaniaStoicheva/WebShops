@@ -23,6 +23,12 @@
                 <td>{{ product.price }}</td>
             </tr>
             <tr>
+                <th>Discount</th>
+                {% for promotion in product.category.id %}
+                <td>{{ promotion }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
                 <th>Category</th>
                 <td><li>{{ product.name }}</li></td>
             </tr>

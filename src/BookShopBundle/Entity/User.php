@@ -73,6 +73,29 @@ class User implements UserInterface
     private $role;
 
     /**
+     * @ORM\OneToMany(targetEntity="BookShopBundle\Entity\Cart",mappedBy="userId")
+     */
+    private $carts;
+
+    /**
+     * @return mixed
+     */
+    public function getCarts()
+    {
+        return $this->carts;
+    }
+
+    /**
+     * @param mixed $carts
+     */
+    public function setCarts($carts)
+    {
+        $this->carts = $carts;
+    }
+
+
+
+    /**
      * Get id
      *
      * @return int

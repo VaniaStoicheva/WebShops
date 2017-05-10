@@ -17,20 +17,17 @@ use BookShopBundle\Entity\Promotion;
 class PriceCalculator
 {
     /**
-     * @var EntityManager
+     * @var PromotionManager
      */
-    protected $emanager;
-    protected $promotion;
-    protected $category_promotions=[];
+    protected $manager;
 
     /**
      * PriceCalculator constructor.
-     * @param EntityManager $emanager
+     * @param PromotionManager $manager
      */
-    public function __construct(EntityManager $emanager)
+    public function __construct(PromotionManager $manager)
     {
-        $this->emanager = $emanager;
-
+        $this->manager = $manager;
     }
 
     /**
@@ -39,35 +36,26 @@ class PriceCalculator
      */
     public function calculate($product)
     {
+
         $category=$product->getCategory();
 
-        if(!isset($this->category_promotions[$category->getId()])){
-            $this->category_promotions[$category->getId()]=
-                $this->emanager
-                ->getRepository('BookShopBundle:Promotion')
-                ->fetchBiggestPromotion($category);
-        }
-        $promotion=$this->category_promotions[$category->getId()];
+        $promotion=$this->manager->getGeneralPromotion();
 
-        if($promotion===0 && $this->promotion===null){
-            $this->promotion=$promotion=$this->emanager
-                ->getRepository('BookShopBundle:Promotion')
-                ->fetchBiggestPromotion();
+        if($this->manager->hasCategoryPromotion($category)){
+            $promotion=$this->manager->getCategoryPromotion($category);
         }
-       /* $promotion=$this->emanager->getRepository('BookShopBundle:Promotion')
-            ->fetchBiggestPromotion($product->getCategory());
-        if($promotion===0 && $this->promotion===null){
-            $promotion=$this->emanager->getRepository('BookShopBundle:Promotion')
-                ->fetchBiggestPromotion();
-        }*/
-
         return $product->getPrice()-$product->getPrice()*($promotion/100);
-
     }
 
-    private function initMaxPromotion()
+
+    /**
+     * @param Product $product
+     * @return int
+     */
+    public  function percent($product)
     {
-        $this->promotion=$this->emanager->getRepository('BookShopBundle:Promotion')->fetchBiggestPromotion();
+        $category=$product->getCategory();
+        $promotion=$this->manager->getCategoryPromotion($category);
+        return $promotion;
     }
-
 }
