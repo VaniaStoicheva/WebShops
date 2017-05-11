@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="col-md-6 col-md-offset-2">
+    <h1>Create new user</h1>
+
+    {{ form_start(form) }}
+       {{ form_widget(form) }}
+        {{ form_row(form.r) }}
+
+    {{ form_end(form) }}
+    </div>
+
+
+            <a href="{{ path('user_index') }}" class="btn btn-primary btn-sm">Back to the list</a>
+
+{% endblock %}
