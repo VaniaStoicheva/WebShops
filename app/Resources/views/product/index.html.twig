@@ -76,6 +76,8 @@
         </div>
 
     </div>
+    {% if is_granted('ROLE_EDITOR') %}
     <a href="{{ path('product_new') }}" class="btn btn-primary btn-sm">Add new Product</a>
+    {% endif %}
 </div>
 {% endblock %}

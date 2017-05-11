@@ -22,7 +22,7 @@ class User implements UserInterface
 
     const ROLE_USER = 'ROLE_USER';
     const ROLE_ADMIN= 'ROLE_ADMIN';
-    const ROLE_SUPER_ADMIN=  'ROLE_SADMIN';
+    const ROLE_EDITOR=  'ROLE_EDITOR';
 
     /**
      * @var int

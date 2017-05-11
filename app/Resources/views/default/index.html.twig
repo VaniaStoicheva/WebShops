@@ -5,7 +5,7 @@
         <div class="col-md-6 col-md-offset-2">
     <h1>Welcome to Web BookStore</h1><br>
     <a href="{{ url('product_index') }}" class="btn btn-primary btn-lg">View All Products</a>
-    {% if is_granted('ROLE_USER') %}
+    {% if is_granted('ROLE_EDITOR') %}
         <a href="{{ url('product_new') }}" class="btn btn-primary btn-lg">Create Product</a>
 
     <a href="{{ url('admin_manage_products') }}" class="btn btn-primary btn-lg" >manage products</a>

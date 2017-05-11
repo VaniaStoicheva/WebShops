@@ -32,7 +32,9 @@
     </table>
     </div>
 </div>
+{% if is_granted('ROLE_EDITOR') %}
             <a href="{{ path('category_new') }}" class="btn btn-primary btn-sm">Add new category</a>
+{% endif %}
 
 
 {% endblock %}

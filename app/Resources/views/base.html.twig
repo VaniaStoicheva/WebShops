@@ -38,43 +38,16 @@
                         <li class="active"><a href="{{ path('product_index') }}" data-toggle="tab" aria-expanded="false">Products</a></li>
                         <li class="active"><a href="{{ path('promotion_index') }}" data-toggle="tab" aria-expanded="false">Promotions</a></li>
 
-                       {# <li class="dropdown open">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="false">
-                                Books <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('product_index') }}" data-toggle="tab">View all Books</a></li>
-                                <li class="divider"></li>
-                                <li><a href="{{ path('product_new') }}" data-toggle="tab">Add New Book</a></li>
-                            </ul>
-                        </li>
-                    </ul>#}
-
-                    {#<li class="dropdown open">
-                        <a class="dropdown-toggle active" data-toggle="dropdown" href="{{ path('homepage') }}" aria-expanded="true">Categories <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('category_index') }}" data-toggle="tab">View all Categories</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ path('category_new') }}" data-toggle="tab">Add New Category</a></li>
-                        </ul>
-                    </li>
-                    </ul>#}
-
                 </div>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
                 {#{% if app.user %}#}
 
-                <li>
-                    <a href="{{ path('user_logout') }}">
-                        Logout
-                    </a>
-                </li>
+
                 {#{% else %}#}
                 <li>
-                    <a href="{{ path('user_login') }}">
+                    <a href="{{ path('user_register') }}">
                         REGISTER
                     </a>
                 </li>
@@ -84,6 +57,11 @@
                     </a>
                 </li>
                 {#{% endif %}#}
+                <li>
+                    <a href="{{ path('user_logout') }}">
+                        Logout
+                    </a>
+                </li>
             </ul>
         </div>
         </div>

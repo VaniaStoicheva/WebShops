@@ -31,5 +31,5 @@ security:
     access_control:
         - { path: ^/register , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login , roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/product/manage/products, roles: [ ROLE_ADMIN, ROLE_SADMIN] }
-        - { path: ^/, roles: [ROLE_USER, ROLE_ADMIN, ROLE_SADMIN] }
+        - { path: ^/product/manage/products, roles: [ ROLE_ADMIN, ROLE_EDITOR] }
+        - { path: ^/, roles: [ROLE_USER, ROLE_ADMIN, ROLE_EDITOR] }
