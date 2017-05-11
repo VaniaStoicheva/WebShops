@@ -49,6 +49,31 @@ class Promotion
     private $category;
 
     /**
+     * @var Product
+     * @ORM\ManyToOne(targetEntity="BookShopBundle\Entity\Product",inversedBy="promotions")
+     * @ORM\JoinColumn(name="product_id",referencedColumnName="id")
+     */
+    private $product;
+
+    /**
+     * @return mixed
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param mixed $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
+    }
+
+
+
+    /**
      * Get id
      *
      * @return int

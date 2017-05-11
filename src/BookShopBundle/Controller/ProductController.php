@@ -2,6 +2,7 @@
 
 namespace BookShopBundle\Controller;
 
+use BookShopBundle\Entity\Promotion;
 use BookShopBundle\Service\PriceCalculator;
 use BookShopBundle\Entity\Category;
 use BookShopBundle\Entity\Product;
@@ -33,15 +34,6 @@ class ProductController extends Controller
 
         $products = $em->getRepository('BookShopBundle:Product')->findAll();
         $categories=$em->getRepository('BookShopBundle:Category')->findAll();
-        $promotion=$em->getRepository('BookShopBundle:Promotion')->findAll();
-
-        $percent_promotions=$em->getRepository('BookShopBundle:Promotion')->findBy([
-                    'category'=>$promotion
-                ]);
-        /*$percent_promotions=0;
-        foreach ($categories as $category){
-            if($promotion->h)1,14min tema22
-        }*/
 
         $max_promotion=$this->getDoctrine()->getRepository('BookShopBundle:Promotion')
             ->fetchBiggestPromotion();
@@ -54,7 +46,6 @@ class ProductController extends Controller
             'categories'=>$categories,
             'product' => $products,
             'max_promotion'=>$max_promotion,
-            'percent_promotions'=>$percent_promotions,
             'calc'=>$calc,
             'user'=>$this->getUser(),
         ));
@@ -94,6 +85,7 @@ class ProductController extends Controller
     {
         $product = new Product();
 
+
         $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
         $form = $this->createForm('BookShopBundle\Form\ProductType', $product);
 
@@ -119,6 +111,7 @@ class ProductController extends Controller
                 $product->setImage($filename);
 
                 $em = $this->getDoctrine()->getManager();
+
                 $em->persist($product);
                 $em->flush();
 
@@ -127,6 +120,7 @@ class ProductController extends Controller
             }
         }
         return $this->render('product/new.html.twig', array(
+
 'categories'=>$categories,
             'product' => $product,
             'form' => $form->createView(),

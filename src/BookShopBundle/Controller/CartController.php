@@ -4,6 +4,7 @@ namespace BookShopBundle\Controller;
 
 use BookShopBundle\Entity\Cart;
 use BookShopBundle\Entity\CartProduct;
+use BookShopBundle\Entity\Product;
 use BookShopBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -68,9 +69,9 @@ class CartController extends Controller
                    $cart_product=new CartProduct();
                    $cart_product->setCart($cart);
                    $cart_product->setProduct($product);
-                   $cart_product->setQuantity($product->getQuantity());
+                   $cart_product->setQuantity(1);
                }else{
-                   $cart_product->setQuantity($product->getQuantity()+$product->getQuantity());
+                   $cart_product->setQuantity($cart_product->getQuantity()+1);
                }
 
                $em->persist($cart_product);
@@ -88,9 +89,25 @@ class CartController extends Controller
      * @Route("/cart/list",name="cart_list")
      * @return Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        $cart_id=$this->get('session')->get('cart_id',false);
+        $username=$this->getDoctrine()->getRepository('BookShopBundle:User')->findOneBy(['id'=>$cart_id]);
 
-        return new JsonResponse([]);
+        $cart_product=$this->getDoctrine()->getRepository('BookShopBundle:CartProduct')->findBy([
+            'cart'=>$cart_id
+        ]);
+
+        $calc=$this->get('price_calculator');
+
+
+        return $this->render('cart/list.html.twig',[
+            'cart'=>$cart_product,
+            'username'=>$username,
+            'calc'=>$calc,
+
+        ]);
+
+
     }
 }

@@ -80,7 +80,7 @@ class CartProduct
     /**
      * Set product
      *
-     * @param \stdClass $product
+     * @param Product $product
      *
      * @return CartProduct
      */

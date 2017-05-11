@@ -7,7 +7,23 @@
         <h1>Product creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.quantity) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.image_form) }}
+        {{ form_row(form.category) }}
+
+       {# <h3>Promotion</h3>
+        <ul class="promotion">
+        {% for promotion in form.promotions%}
+            <li>
+            {{ form_row(promotion.percent) }}
+            {{ form_row(promotion.startDate) }}
+            {{ form_row(promotion.endDate) }}
+            </li>
+            {% endfor %}
+        </ul>#}
         <input type="submit" value="Create" class="btn btn-primary btn-sm"/>
     {{ form_end(form) }}
     </div>

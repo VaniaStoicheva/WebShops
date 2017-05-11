@@ -24,13 +24,13 @@
             </tr>
             <tr>
                 <th>Discount</th>
-                {% for promotion in product.category.id %}
-                <td>{{ promotion }}</td>
+                {% for promotion in product.category.promotions %}
+                    <td><strong style="color: red">{{ promotion.percent }}%</strong></td>
                 {% endfor %}
             </tr>
             <tr>
                 <th>Category</th>
-                <td><li>{{ product.name }}</li></td>
+                <td><li>{{ product.category }}</li></td>
             </tr>
             <tr>
                 <th>Image</th>

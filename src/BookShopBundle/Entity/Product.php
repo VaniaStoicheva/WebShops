@@ -98,6 +98,18 @@ class Product
     private $category;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BookShopBundle\Entity\Promotion",mappedBy="product",cascade={"persist"})
+     */
+//cascade={persist})
+    private $promotions;
+
+    public function __construct()
+    {
+        $this->promotions=new ArrayCollection();
+    }
+
+    /**
      * Get quantity
      *
      * @return int
@@ -118,9 +130,6 @@ class Product
     {
         $this->quantity = $quantity;
     }
-
-
-
 
     /**
      * Get id
@@ -283,6 +292,23 @@ class Product
     }
 
     /**
+     * @return mixed
+     */
+    public function getPromotions()
+    {
+        return $this->promotions;
+    }
+
+    /**
+     * @param mixed $promotions
+     */
+    public function setPromotions($promotions)
+    {
+        $this->promotions = $promotions;
+    }
+
+
+    /**
      * @param Category $category
      */
     public function setCategory(Category $category)
@@ -290,7 +316,14 @@ class Product
         $this->category = $category;
     }
 
-
+    public function addPromotion(Promotion $promotion)
+    {
+        $this->promotions->add($promotion);
+    }
+    public function removePromotion(Promotion $promotion)
+    {
+        $this->promotions->remove($promotion);
+    }
 
 
 

@@ -2,5 +2,60 @@
 
 {% block body %}
 
-   {{ 'list' }}
-{% endblock %}
+<div class="container">
+   <div class="col-md-6 col-md-offset-2">
+      <div class="table-respovsive">
+          <h1>List  product by user: {{ username.username |default }} </h1>
+         <table class="table table-striped table-hover ">
+            <tbody>
+            <tr>
+               <th>Id</th>
+               <th>Name</th>
+               <th>Price</th>
+                <th>Discount</th>
+                <th>Promotion</th>
+                <th>Quantity</th>
+                <th>Sum</th>
+            </tr>
+
+            {% for products in cart %}
+
+                <tr>
+                     <td>{{ products.product.id }}</td>
+                    <td>{{ products.product.name }}</td>
+                    <td>{{ products.product.price }}</td>
+                    <td>{{ products.product.category }}</td>
+                    <td>
+                        {% set product_promotion=calc.calculate(products.product) %}
+                        {% if product_promotion!=products.product.price %}
+                            <del>{{  products.product.price | number_format(2) }}<br></del>
+                        {% endif %}
+                        {{ product_promotion  | number_format(2) }}
+                    </td>
+                    <td>{{ products.quantity }}</td>
+                    <td>
+                        {% set product_promotion=calc.calculate(products.product) %}
+                        {% if product_promotion==products.product.price %}
+                            <del>{{  products.product.price*products.quantity | number_format(2) }}<br></del>
+                        {% endif %}
+                        {{ product_promotion*products.quantity |number_format(2) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th><h2>Total sum :</h2></th>
+                <td><h2 style="color: red">{{ '146'}}</h2></td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+
+   </div>
+
+
+
+   <a href="{{ path('product_index') }}" class="btn btn-primary btn-sm">Back to the list products</a>
+
+
+
+    {% endblock %}
